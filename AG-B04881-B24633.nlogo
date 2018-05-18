@@ -1,21 +1,26 @@
 ;; Each potential solution is represented by a turtle.
 
+;; se define variables globales turtles
 turtles-own [
   bits           ;; list of 0's and 1's
   fitness
 ]
-
+;; se define variables globales de uso generalizado
 globals [
   winner         ;; turtle that currently has the best solution
-  parents-aptitude
-  sim
-  x
+  parents-aptitude ;; aptitud de los padres
+  sim ;; sim permite saber si se esta en simulación resetar las tortugas o variables dadas en caso de que sea necesario, excepto los gráficos.
+  x  ;; contador que permite determinar cuando terminar el loop en la simulación
 ]
+
+
+;; establece las condiciones de la simulación.
 
 to setup
   ifelse sim = 1
   [clear-turtles]
-  [clear-all  file-open "C:/Users/JeiferPM/Documents/U/Paradigmas Computacionales/NetLogo/data.txt" ;ruta en donde se guardarán los resultados de todos los fitnes en una simulación
+  [clear-all  
+    file-open "data.txt" ;ruta en donde se guardarán los resultados de todos los fitnes en una simulación
   ]
   create-turtles population-size [
     set bits n-values world-width [one-of [0 1]]
@@ -24,15 +29,19 @@ to setup
   ]
   set parents-aptitude 0
   update-display
-
+ 
   reset-ticks
 end
 
+;; da inicio a la simulación
+
 to go
   if [fitness] of winner = world-width
-    [ file-close-all
+    [ 
       set X 1
-      stop ]
+      stop 
+      file-close-all
+    ]
   ask turtles
     [ file-print  "fitness:"  file-print fitness file-print  "\n"]
   file-print  "diversity:"  file-print  diversity file-print  "\n"
@@ -43,6 +52,8 @@ to go
   tick
 end
 
+;; Actualiza los elementos en el display utilizado
+
 to update-display
   set winner max-one-of turtles [fitness]
   ask patches [
@@ -52,6 +63,9 @@ to update-display
   ]
 
 end
+
+
+;; rutina de simulacion establece 5 corridas, dónde los grados de cruce van aumentando al mismo tiempo la tasa de mutación disminuye.
 
 to simulacion
   clear-all
