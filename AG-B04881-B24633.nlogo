@@ -582,10 +582,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot max [fitness] of turtles"
 
 MONITOR
-581
-520
-729
-565
+978
+522
+1126
+567
 Mutation Rate
 mutation-rate
 17
@@ -593,10 +593,10 @@ mutation-rate
 11
 
 MONITOR
-758
-520
-858
-565
+1155
+522
+1255
+567
 Crossover Rate
 crossover-rate
 17
@@ -604,117 +604,107 @@ crossover-rate
 11
 
 @#$#@#$#@
-## WHAT IS IT?
+## Que es el modelo?
+Este modelo demuestra el uso de un algoritmo genético para un problema simple. Trata sobre una poblacón de tortugas con ciertos ragos genéticos, de estas se crean nuevas generaciones a partir de las tortugas con mejores genes de la generación pasada(padres).
 
-This model demonstrates the use of a genetic algorithm on a very simple problem.  Genetic algorithms (GAs) are a biologically-inspired computer science technique that combine notions from Mendelian genetics and Darwinian evolution to search for good solutions to problems (including difficult problems).  The GA works by generating a random population of solutions to a problem, evaluating those solutions and then using cloning, recombination and mutation to create new solutions to the problem.
+## Cómo trabaja? 
 
-In this model we use the simple "ALL-ONES" problem to demonstrate how this is possible. We use such a simple problem in this model in order to highlight the solution technique only. The idea of the "ALL-ONES" problem is to find a string of bits (that is, a sequence of just ones and zeros) that contains all ones, and no zeros.  Thus the string that best solves this problem is "111111...111".
+1) Se crea una cierta cantidad de agentes cuyo genoma(vector de bits) es definido aleatoriamente
 
-## HOW IT WORKS
+2)Se evalua cada agente en base a que tan bueno ó eficiente es resolviendo cierto problema , que para nuestro encontrar un agente cuyo genoma esté definido sólo por 1's.
 
-The genetic algorithm is composed of the following steps.
+3)Una nueva generación  se crea de la vieja generación, donde se toman como padres los afentes cuyos genomas tengan la mayor cantidad de 1's.
 
-1) A population of random solutions is created.  Each solution consists of a string of randomly mixed "1"s and "0"s.
+A) La selección de los padres para la nueva generación consta de seleccionar aleatoriamente 3 agentes del mundo y se le asigna procrear al agente cuyo genoma contenga la mayor cantidad de 1's.
 
-2) Each solution is evaluated on the basis of how well it solves the problem.  This measure of the "goodness" of the solution is called its "fitness".  In this model, our goal is simply to find a solution that consists of all "1"s.  (In real-world applications of the genetic algorithm, the goals are much more complex, but the solutions are still usually encoded as binary strings.)
+B) Un hijo puede derivarse de un padre , en este caso se le considera como un clon. En caso de tener dos padres su genoma consistirá en una combinación de los genomas de sus respectivos padres.
 
-3) A new generation of solutions is created from the old generation, where solutions that have a higher fitness scores are more likely to be chosen as "parent" solutions than those that have low fitness scores.
+C)Existe la psosibilidad de que un agente pase por una mutación, que se considera una cuando uno de los bits de su vector genoma cambia de  1 a 0 o viceversa.
 
-A) The selection method used in this model is called "tournament selection", with a tournament size of 3.  This means that 3 solutions are drawn randomly from the old generation, and the one with the highest fitness is chosen to become a parent.
+4) Finalmente los pasos 2 y 3 se repiten hasta que el problema sea solucionado.
 
-B) Either one or two parents are chosen to create children.  With one parent, the child is a clone or copy of the parent.  With two parents, the process is the digital analog of sexual recombination -- the two children inherit part of their genetic material from one parent and part from the other.
+## Como usar el modelo ? 
 
-C) There is also a chance that mutation will occur, and some of the child's bits will be changed from "1"s to "0"s, or vice versa.
+Se presiona setup para crear una poblacion aleatoria)(genomas definidos al azar) inicial.
 
-4) Steps 2 and 3 above are repeated until a solution is found that successfully solves the problem.
+Para crear una nueva generación(equivalente a como avanzar una generación hacia el futuro) a partir de la vieja se presiona el botón de step.
 
-## HOW TO USE IT
+En caso de querer correr el modelo hasta que se encuentre la solución presione el botón GO.
 
-Press the SETUP button to create an initial random population of solutions.
+El botón SIMULACIÓN se encarga de correr el modelo con los parámetros mutation-rate y crossover-rate ya predefinidos(establecidos en el enunciado de la tarea).
 
-Press the STEP button to have one new generation created from the old generation.
+La mejor solución encontrada por generación se muestra en el rectángulo en la esquina superior izquierda, donde los sectores negros corresponden a ceros en el genoma y los blancos a unos en el mismo.
 
-Press the GO button to have the genetic algorithm run until a solution has been found.
+=== Parametros ===
 
-The best solution found in each generation is displayed in the VIEW.  Each white column represents a "1"-bit and each black column represents a "0"-bit.
+El deslizador ó slider cuyo nombre es POPULATION-SIZE estable la cantidad inicial de agentes en cada generación.
 
-=== Parameters ===
+El deslizador ó slider cuyo nombre es Crossover-rate  especifica que porcentaje de la población será creada mediante la reproducción sexual y cual porcentaje será creada mediante reproducción asexual.
 
-The POPULATION-SIZE slider controls the number of solutions that are present in each generation.
+El deslizador ó slider cuyo nombre es MUTATION-RATE es el que indica cual es el chance de que un agente mute, esta probabilidad se le aplica a cada bit del vector genoma.
 
-The CROSSOVER-RATE slider controls what percent of each new generation is created through sexual reproduction (recombination or crossover between two parents' genetic material), and what percent (100 - CROSSOVER-RATE) is created through asexual reproduction (cloning of one parent's genetic material).
+El interruptor o switch PLOT-DIVERSITY? es la encargada de decir si se grafica la diversidad o no, se graficaría la diversidad por cada generación creada. Apagando es interruptor aceleraría la velocidad del modelo ya calcular las diversidades consume mucho tiempo en calculos. 
 
-The MUTATION-RATE slider controls the percent chance of mutation.  This chance applies to each position in the string of bits of a new individual.  For instance, if the string is 100 bits long, and the mutation-rate is set at 1%, then on average one bit will be changed during the creation of each new individual.
+El interruptor o switch PLOT-PARENTS-FITNESS? se encarga de graficar cual es el promedio de 1's que contienen los genomas de los padres ó del padre.
 
-The PLOT-DIVERSITY? switch controls whether the amount of diversity within the population of solutions is plotted each generation, shown in the "Diversity Plot".  Turning off PLOT-DIVERSITY? significantly increases the speed of the model because calculating diversity requires a lot of computation.
+El interruptor o switch FITNESS-FUNCTION?  se encarga de determinar cual funcion para calcular la aptitud de los mejores agentes se usará, la que traía implementadad el modelo ó la implementa para fines de la tarea.
 
-The "Fitness Plot" is used to show the best, average, and worst fitness values of the solutions at each generation.
+El "Fitness Plot" grafica cual es la mejor solución encontrada por cada generación.
 
-## THINGS TO NOTICE
 
-Step through the model slowly, and look at the visual representation of the best solution found in each generation, displayed in the VIEW.  How often does the best solution in Generation X+1 appear to be the offspring of the best solution in Generation X?
 
-As the fitness in the population increases, the diversity decreases.  Why is this?
+## Datos interesantes
 
-## THINGS TO TRY
+Es interesante plantearse el porque conforme se va acercando a la solución óptima el valor de la diversidad decrece, esto usando la función de fitnees-calculation original. Porque también sucede que con la nueva función de calculo de fitness conforme nos acercamos a la mejor solución la diversidad incrementa
 
-Explore the effects of larger or smaller population sizes on the number of generations it takes to solve the problem completely.  What happens if you measure the amount of time (in seconds) that it takes to solve the problem completely?
+## Cosas a probar 
 
-How does asexual reproduction compare to sexual reproduction for solving this problem?  (What if CLONING-RATE is 100, or CLONING-RATE is 0?)
+Para este modelo existen muchos casos interesantes , como por ejemplo: 
 
-How much mutation is beneficial for the genetic algorithm?  Can the genetic algorithm find a perfect solution if there is MUTATION-RATE is 0?  What about if MUTATION-RATE is 10.0?  Can you find an optimal MUTATION-RATE?
+Que tanto afecta la velocidad del modelo para encontrar la solución el valor del mutation-rate? 
 
-## EXTENDING THE MODEL
+Por que se llega tan rápido a la solución optima con la nueva función de fitness?
 
-Many variations on this simple genetic algorithm exist.  For example, some genetic algorithms include "elitism".  In this case, the best X% of solutions from the old generation are always copied directly into the new generation.  Modify this model so that it uses elitism.
+## Extendiendo el modelo
 
-Another type of selection for reproduction that is sometimes used in genetic algorithms is called "roulette selection".  In this case, you may imagine each solution in the population being assigned a wedge of a large roulette wheel.  The size of the wedge is determined by dividing the fitness of each solution by the sum of the fitnesses of all solutions in the population.  Thus, the probability of selecting any given solution to reproduce is directly proportional to its fitness.  Try implementing this type of selection, and compare its performance to the "tournament selection" method that is currently used in this model.
+Hay muchas formas de agregar nuevas funcionalidades a este modelo, como por ejemplo qu eexiste un método para encontrar la solución óptima que consiste en tomar al agente mejor dotado y copiarlo directamente en la nueva generación.Se podría modificar este modelo para que utilice esta metodología.
 
-As noted above, the "ALL-ONES" problem is a toy problem that is not very interesting in its own right.  A natural extension of this model is to use the genetic algorithm to solve a problem that is significantly more interesting.  Fortunately, you can change the problem that the genetic algorithm is solving by only modifying one thing, the "fitness function", which evaluates how good a given string of bits is at solving whatever problem you are trying to solve.  For example, you could evolve rules for how a turtle should move, in order to maximize its food collection as it travels through the world.  To do so, you might change the `ga-calculate-fitness` procedure to run a little simulation where a turtle moves in the world (according to some rules that are defined by the string of "1"s and "0"s), count how much food the turtle collects, and then set the fitness accordingly.
+Otro tipo de extensión que se le podría agregar a este modelo es la llamada "ruleta rusa", en donde a cada agente del mundo se le asgina un cierto rango de número entre 1 y 100, donde el tamaño de este rango es proporcional y promediado según la cantidad de 1's que presente en su vector genoma, por lo que la probabilidad de cada agente para reproducirce va ligada directamente con su aptitud. Se podría implementar está metodología y comparar los resultados contra la usada actualmente que es la "tournament selection".
 
-## NETLOGO FEATURES
 
-Note that NetLogo's powerful ability to work with agentsets makes it very easy to code the "tournament selection" used in this model.  The following code is sufficient:
 
-    max-one-of (n-of 3 old-generation) [ga-fitness]
+## CREDITOS Y REFERENCIAS
 
-## RELATED MODELS
+Este modelo se basa en el trabajo de John H. Holland, que es ampliamente considerado como el padre de los algoritmos genéticos. 
+En caso de querer profundizar en el modelo investigar el libro de Holland "Adaptación en sistemas naturales y artificiales", 1992, MIT Press.
 
-Echo is another model that is inspired by the work of John H. Holland.  It examines issues of evolutionary fitness and natural selection.
 
-There are several NetLogo models that examine principles of evolution from a more biological standpoint, including Altruism, Bug Hunt Camouflage, Cooperation, Mimicry, Peppered Moths, as well as the set of Genetic Drift models.
+## COMO CONTACTAR
 
-Sunflower Biomorph uses an artistic form of simulated evolution, driven by aesthetic choices made by the user.
+Si menciona este modelo o el software NetLogo en una publicación, le pedimos que incluya las citas a continuación.
 
-## CREDITS AND REFERENCES
+Para el modelo en sí:
 
-This model is based off of work by John H. Holland, who is widely regarded as the father of the genetic algorithms.  See Holland's book "Adaptation in Natural and Artificial Systems", 1992, MIT Press.
+* Stonedahl, F. y Wilensky, U. (2008). Modelo de Algoritmo Genético Simple de NetLogo. http://ccl.northwestern.edu/netlogo/models/SimpleGeneticAlgorithm. Centro de aprendizaje conectado y modelado basado en computadora, Northwestern University, Evanston, IL.
 
-Additional information about genetic algorithms is available from a plethora of sources online.
+Por favor, cite el software NetLogo como:
 
-## HOW TO CITE
+* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Centro de aprendizaje conectado y modelado basado en computadora, Northwestern University, Evanston, IL.
 
-If you mention this model or the NetLogo software in a publication, we ask that you include the citations below.
-
-For the model itself:
-
-* Stonedahl, F. and Wilensky, U. (2008).  NetLogo Simple Genetic Algorithm model.  http://ccl.northwestern.edu/netlogo/models/SimpleGeneticAlgorithm.  Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
-
-Please cite the NetLogo software as:
-
-* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
-
-## COPYRIGHT AND LICENSE
+## DERECHOS DE ACTOR Y LICENCIAS
 
 Copyright 2008 Uri Wilensky.
 
 ![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)
+![CC BY-NC-SA 3.0](C:/Users/JeiferPM/Documents/U/Lab Ingenieria de software 1/Proyecto/sol.png)
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License.  To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
 
-Commercial licenses are also available. To inquire about commercial licenses, please contact Uri Wilensky at uri@northwestern.edu.
+Este trabajo está bajo la licencia Creative Commons Attribution-NonCommercial-ShareAlike 3.0. Para ver una copia de esta licencia, visite https://creativecommons.org/licenses/by-nc-sa/3.0/ o envíe una carta a Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, EE. UU.
 
+Las licencias comerciales también están disponibles. Para solicitar información sobre licencias comerciales, comuníquese con Uri Wilensky en uri@northwestern.edu.
 <!-- 2008 Cite: Stonedahl, F. -->
+
+## GRÁFICOS
 @#$#@#$#@
 default
 true
