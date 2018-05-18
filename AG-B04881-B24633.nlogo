@@ -1,6 +1,6 @@
-;; Each potential solution is represented by a turtle.
+;; Cada solución potencial es representada por una tortuga
 
-;; se define variables globales turtles
+;; se define variables globales turtles con sus propiedad intrinsencas bits (genes de la cadena de representación) y fitness (valor de aptitud)
 turtles-own [
   bits           ;; list of 0's and 1's
   fitness
