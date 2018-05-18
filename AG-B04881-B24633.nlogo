@@ -19,7 +19,7 @@ globals [
 to setup
   ifelse sim = 1
   [clear-turtles]
-  [clear-all  
+  [clear-all
     file-open "data.txt" ;ruta en donde se guardarán los resultados de todos los fitnes en una simulación
   ]
   create-turtles population-size [
@@ -29,7 +29,7 @@ to setup
   ]
   set parents-aptitude 0
   update-display
- 
+
   reset-ticks
 end
 
@@ -37,9 +37,9 @@ end
 
 to go
   if [fitness] of winner = world-width
-    [ 
+    [
       set X 1
-      stop 
+      stop
       file-close-all
     ]
   ask turtles
@@ -719,6 +719,11 @@ Las licencias comerciales también están disponibles. Para solicitar informaci�
 <!-- 2008 Cite: Stonedahl, F. -->
 
 ## GRÁFICOS
+Gráfico que utiliza la función fitness por defecto 
+![Example](file:grafico-función-original.png)
+
+Gráfico que utiliza la nueva funciómn fitness implementada
+![Example](file:grafico-nueva-funcion.png)
 @#$#@#$#@
 default
 true
